@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contagem Regressiva para o Aniversário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        input[type="date"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            width: calc(100% - 110px);
+        }
+
+        button {
+            padding: 10px 30px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .countdown {
+            margin-top: 30px;
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contagem Regressiva para o Aniversário</h1>
+        <p>Insira a data do seu aniversário:</p>
+        <div>
+            <input type="date" id="birthdayInput">
+        </div>
+        <button onclick="startCountdown()">Iniciar Contagem Regressiva</button>
+        <div class="countdown" id="countdown"></div>
+    </div>
+
+    <script>
+        function startCountdown() {
+            const birthdayInput = document.getElementById('birthdayInput').value;
+            const birthday = new Date(birthdayInput + 'T00:00:00');
+
+            if (isNaN(birthday.getTime())) {
+                alert('Por favor, insira uma data válida para o seu aniversário.');
+                return;
+            }
+
+            document.getElementById('countdown').style.display = 'block';
+
+            function updateCountdown() {
+                const now = new Date();
+                const diff = birthday - now;
+
+                if (diff <= 0) {
+                    document.getElementById('countdown').textContent = 'Feliz Aniversário!';
+                } else {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    document.getElementById('countdown').textContent = `Faltam ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos`;
+                }
+            }
+
+            setInterval(updateCountdown, 1000);
+
+            updateCountdown();
+        }
+    </script>
+</body>
+</html>
